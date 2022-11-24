@@ -14,7 +14,7 @@ class DioHttpService implements HttpService {
   DioHttpService({
     Dio? dioOverride,
   }) {
-    _dio = Dio(baseOptions);
+    _dio = dioOverride ?? Dio(baseOptions);
   }
 
   @override

@@ -39,6 +39,7 @@ dev_dependencies:
   flutter_native_splash: ^2.2.14
   flutter_test:
     sdk: flutter
+  http_mock_adapter: ^0.3.3
 
 flutter_icons:
   android: "launcher_icon"
