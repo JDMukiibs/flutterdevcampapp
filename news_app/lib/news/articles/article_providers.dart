@@ -30,4 +30,12 @@ class ArticlesNotifier extends StateNotifier<List<Article>> {
   void addToSavedArticles(Article article, bool isSaved) {
     // TODO (Joshua): utilize function from UserArticleStorage
   }
+
+  List<Article> fetchAllArticles() {
+    return [];
+  }
+
+  List<Article> fetchArticlesMatchingSearchQuery() {
+    return [];
+  }
 }

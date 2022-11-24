@@ -50,8 +50,7 @@ void main() {
       when(() => mockGoogleSignInAccount.authentication).thenAnswer(
         (_) async => mockGoogleSignInAuthentication,
       );
-      when(() => mockFirebaseAuth.signInWithCredential(mockCredentials))
-      .thenAnswer((_) async => mockUserCredential);
+      when(() => mockFirebaseAuth.signInWithCredential(mockCredentials)).thenAnswer((_) async => mockUserCredential);
 
       final actualAuthResult = await authService.loginWithGoogle();
 

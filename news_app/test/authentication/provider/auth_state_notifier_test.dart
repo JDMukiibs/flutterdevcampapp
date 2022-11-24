@@ -5,8 +5,11 @@ import '../../mocks/mocks.dart';
 void main() {
   late MockAuthService mockAuthService;
   late MockUserInfoStorage mockUserInfoStorage;
-  
-  group('AuthStateNotifier', () {
 
+  group('AuthStateNotifier Tests', () {
+    test(
+      'No tests written yet',
+      () => expect(true, isFalse),
+    );
   });
 }
