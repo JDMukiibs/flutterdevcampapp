@@ -3,9 +3,23 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:news_app/authentication/authentication.dart';
 
 class AuthService {
-  const AuthService();
+  AuthService({
+    FirebaseAuth? firebaseAuthOverride,
+    GoogleSignIn? googleSignInOverride,
+    OAuthCredential? credentialsOverride,
+  }) {
+    firebaseAuthInstance = firebaseAuthOverride ?? FirebaseAuth.instance;
+    googleSignIn = googleSignInOverride ?? GoogleSignIn(scopes: ['email']);
+    if (credentialsOverride != null) {
+      credentials = credentialsOverride;
+    }
+  }
 
-  User? get currentUser => FirebaseAuth.instance.currentUser;
+  late final FirebaseAuth firebaseAuthInstance;
+  late final GoogleSignIn googleSignIn;
+  late final OAuthCredential? credentials;
+
+  User? get currentUser => firebaseAuthInstance.currentUser;
 
   bool get isAlreadyLoggedIn => currentUser != null;
 
@@ -14,28 +28,22 @@ class AuthService {
   String? get email => currentUser?.email;
 
   Future<void> logOut() async {
-    await FirebaseAuth.instance.signOut();
-    await GoogleSignIn().signOut();
+    await firebaseAuthInstance.signOut();
+    await googleSignIn.signOut();
   }
 
   Future<AuthResult> loginWithGoogle() async {
-    final GoogleSignIn googleSignIn = GoogleSignIn(
-      scopes: [
-        'email',
-      ],
-    );
-
     final signInAccount = await googleSignIn.signIn();
     if (signInAccount == null) {
       return AuthResult.aborted;
     }
     final googleAuth = await signInAccount.authentication;
-    final oauthCredentials = GoogleAuthProvider.credential(
+    final oauthCredentials = credentials ?? GoogleAuthProvider.credential(
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );
     try {
-      await FirebaseAuth.instance.signInWithCredential(oauthCredentials);
+      await firebaseAuthInstance.signInWithCredential(oauthCredentials);
       return AuthResult.success;
     } catch (e) {
       return AuthResult.failure;

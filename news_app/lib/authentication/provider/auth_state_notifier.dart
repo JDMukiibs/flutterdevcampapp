@@ -20,7 +20,7 @@ final userProvider = Provider.autoDispose<User?>(
 );
 
 class AuthStateNotifier extends StateNotifier<AuthState> {
-  final _authService = const AuthService();
+  final _authService = AuthService();
   final _userInfoStorage = const UserInfoStorage();
 
   AuthStateNotifier() : super(const AuthState.unknown()) {
