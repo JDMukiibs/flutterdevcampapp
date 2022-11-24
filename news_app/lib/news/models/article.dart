@@ -26,16 +26,16 @@ class Article extends Equatable with Comparable<Article> {
   });
 
   Article copy({required bool isSaved}) => Article(
-    source: source,
-    author: author,
-    title: title,
-    description: description,
-    url: url,
-    urlToImage: urlToImage,
-    publishedAt: publishedAt,
-    content: content,
-    isSaved: isSaved,
-  );
+        source: source,
+        author: author,
+        title: title,
+        description: description,
+        url: url,
+        urlToImage: urlToImage,
+        publishedAt: publishedAt,
+        content: content,
+        isSaved: isSaved,
+      );
 
   factory Article.fromJson(Map<String, dynamic> json) {
     return Article(

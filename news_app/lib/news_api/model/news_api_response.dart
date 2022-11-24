@@ -34,7 +34,9 @@ class NewsApiResponse extends Equatable {
 
     data.addAll({'status': status});
     data.addAll({'totalResults': totalResults});
-    articles != null ? data.addAll({'articles': articles!.map((v) => v.toJson()).toList()}) : data.addAll({'articles': null});
+    articles != null
+        ? data.addAll({'articles': articles!.map((v) => v.toJson()).toList()})
+        : data.addAll({'articles': null});
 
     return data;
   }

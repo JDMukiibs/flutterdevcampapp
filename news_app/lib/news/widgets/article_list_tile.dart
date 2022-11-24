@@ -24,15 +24,16 @@ class ArticleListTileListView extends StatelessWidget {
       itemBuilder: (context, index) {
         final article = articles.elementAt(index);
         final savedIcon = article.isSaved
-            ? const Icon(FontAwesomeIcons.solidBookmark,)
-            : const Icon(FontAwesomeIcons.bookmark,);
+            ? const Icon(
+                FontAwesomeIcons.solidBookmark,
+              )
+            : const Icon(
+                FontAwesomeIcons.bookmark,
+              );
 
         return Card(
           clipBehavior: Clip.antiAlias,
-          color: Theme
-              .of(context)
-              .colorScheme
-              .onTertiaryContainer,
+          color: Theme.of(context).colorScheme.onTertiaryContainer,
           child: ListTile(
             dense: true,
             leading: ClipRRect(
@@ -41,36 +42,27 @@ class ArticleListTileListView extends StatelessWidget {
                 height: 120,
                 width: 60,
                 fit: BoxFit.cover,
-                imageUrl: articles[index].urlToImage == null ? OldAppStrings.missingImageUrl : articles[index].urlToImage!,
-                placeholder: (context, url) =>
-                    SizedBox(
-                      height: 60,
-                      width: 40,
-                      child: Center(
-                        child: CircularProgressIndicator(
-                          color: Theme
-                              .of(context)
-                              .colorScheme
-                              .primary,
-                        ),
-                      ),
+                imageUrl:
+                    articles[index].urlToImage == null ? OldAppStrings.missingImageUrl : articles[index].urlToImage!,
+                placeholder: (context, url) => SizedBox(
+                  height: 60,
+                  width: 40,
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      color: Theme.of(context).colorScheme.primary,
                     ),
+                  ),
+                ),
                 errorWidget: (context, url, error) => const Icon(Icons.error_outline_rounded),
               ),
             ),
             title: Text(
               articles[index].title == null ? OldAppStrings.missingTitle : articles[index].title!,
-              style: Theme
-                  .of(context)
-                  .primaryTextTheme
-                  .bodyText1,
+              style: Theme.of(context).primaryTextTheme.bodyText1,
             ),
             subtitle: RichText(
               text: TextSpan(
-                style: Theme
-                    .of(context)
-                    .primaryTextTheme
-                    .subtitle2,
+                style: Theme.of(context).primaryTextTheme.subtitle2,
                 children: [
                   TextSpan(
                     text: articles[index].author == null ? OldAppStrings.missingAuthor : articles[index].author!,

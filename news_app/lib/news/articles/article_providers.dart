@@ -23,7 +23,8 @@ final searchResultsProvider = FutureProvider.autoDispose<List<Article>>((ref) as
 });
 
 class ArticlesNotifier extends StateNotifier<List<Article>> {
-  final _userArticleStorage = const UserArticleStorage();
+  final _userArticleStorage = UserArticleStorage();
+
   ArticlesNotifier({required List<Article> fetchedArticles}) : super(fetchedArticles);
 
   void addToSavedArticles(Article article, bool isSaved) {

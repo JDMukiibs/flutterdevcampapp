@@ -10,9 +10,7 @@ class AuthService {
   }) {
     firebaseAuthInstance = firebaseAuthOverride ?? FirebaseAuth.instance;
     googleSignIn = googleSignInOverride ?? GoogleSignIn(scopes: ['email']);
-    if (credentialsOverride != null) {
-      credentials = credentialsOverride;
-    }
+    credentials = credentialsOverride;
   }
 
   late final FirebaseAuth firebaseAuthInstance;
@@ -38,10 +36,11 @@ class AuthService {
       return AuthResult.aborted;
     }
     final googleAuth = await signInAccount.authentication;
-    final oauthCredentials = credentials ?? GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
+    final oauthCredentials = credentials ??
+        GoogleAuthProvider.credential(
+          accessToken: googleAuth.accessToken,
+          idToken: googleAuth.idToken,
+        );
     try {
       await firebaseAuthInstance.signInWithCredential(oauthCredentials);
       return AuthResult.success;

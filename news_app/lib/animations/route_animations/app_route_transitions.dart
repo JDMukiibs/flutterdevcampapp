@@ -8,11 +8,11 @@ Route createFadeInTransitionForSearchResultsRoute(String query) {
     reverseTransitionDuration: AnimationManager.routeTransitionDuration,
     pageBuilder: (context, animation, secondaryAnimation) => SearchResults(query: query),
     transitionsBuilder: (
-        BuildContext context,
-        Animation<double> animation,
-        Animation<double> secondaryAnimation,
-        Widget child,
-        ) {
+      BuildContext context,
+      Animation<double> animation,
+      Animation<double> secondaryAnimation,
+      Widget child,
+    ) {
       return FadeTransition(
         opacity: animation,
         child: child,

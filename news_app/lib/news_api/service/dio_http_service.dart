@@ -39,7 +39,6 @@ class DioHttpService implements HttpService {
     String endpoint, {
     Map<String, dynamic>? queryParameters,
   }) async {
-
     try {
       final response = await _dio.get(endpoint, queryParameters: queryParameters);
 

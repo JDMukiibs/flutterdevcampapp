@@ -5,5 +5,6 @@ class ProfileViewStrings {
   static const String savedArticles = 'Saved Articles';
   static const String selectedSources = 'Selected Sources';
   static const String logOut = 'Logout';
+
   const ProfileViewStrings._();
 }

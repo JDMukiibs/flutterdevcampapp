@@ -16,5 +16,6 @@ class FirebaseFieldName {
   static const urlToImage = 'image_url';
   static const publishedAt = 'published_at';
   static const content = 'content';
+
   const FirebaseFieldName._();
 }

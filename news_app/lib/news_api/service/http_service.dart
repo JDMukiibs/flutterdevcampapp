@@ -8,7 +8,7 @@ abstract class HttpService {
 
   /// Http get request
   Future<Map<String, dynamic>> get(
-      String endpoint, {
-        Map<String, dynamic>? queryParameters,
-      });
+    String endpoint, {
+    Map<String, dynamic>? queryParameters,
+  });
 }

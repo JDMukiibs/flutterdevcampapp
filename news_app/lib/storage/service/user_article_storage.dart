@@ -6,7 +6,10 @@ import 'package:news_app/storage/storage.dart';
 
 @immutable
 class UserArticleStorage {
-  const UserArticleStorage();
+  UserArticleStorage({FirebaseFirestore? firestoreOverride})
+      : firestoreInstance = firestoreOverride ?? FirebaseFirestore.instance;
+
+  final FirebaseFirestore firestoreInstance;
 
   Future<bool> saveArticle({
     required String userId,
@@ -24,7 +27,7 @@ class UserArticleStorage {
         publishedAt: article.publishedAt ?? OldAppStrings.missingDate,
         content: article.content ?? OldAppStrings.missingContent,
       );
-      await FirebaseFirestore.instance
+      await firestoreInstance
           .collection(
             FirebaseCollectionName.articles,
           )

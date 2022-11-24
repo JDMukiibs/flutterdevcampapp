@@ -29,8 +29,8 @@ class CategoryPicker extends ConsumerWidget {
               isSelected: isSelected,
               onSelected: (bool _) => ref
                   .read(
-                currentCategoryProvider.notifier,
-              )
+                    currentCategoryProvider.notifier,
+                  )
                   .state = category,
             ),
           );

@@ -51,18 +51,18 @@ class JsonAppStrings implements AppStrings {
 
   @override
   dynamic noSuchMethod(Invocation invocation) {
-    if(!invocation.isGetter){
+    if (!invocation.isGetter) {
       return super.noSuchMethod(invocation);
     }
     final memberName = _getSymbolName(invocation.memberName);
     final value = _values[memberName];
-    if(value is String) {
+    if (value is String) {
       return value;
-    }else if(value is List) {
+    } else if (value is List) {
       return value.cast<String>();
-    }else if(value is Map) {
+    } else if (value is Map) {
       return value.cast<String, dynamic>();
-    }else {
+    } else {
       throw 'Bad json data: ${value.runtimeType}: $value';
     }
   }
@@ -147,11 +147,9 @@ class OldAppStrings {
   static const loading = 'Loading...';
 
   /// Error / Exception strings
-  static const articlesNotFoundImageJpg =
-      'https://ih1.redbubble.net/image.322905870.6945/st,small,845x845-pad,'
+  static const articlesNotFoundImageJpg = 'https://ih1.redbubble.net/image.322905870.6945/st,small,845x845-pad,'
       '1000x1000,f8f8f8.jpg';
-  static const articlesNotFoundImagePng =
-      'https://assets.stickpng.com/images/5845cd230b2a3b54fdbaecf7.png';
+  static const articlesNotFoundImagePng = 'https://assets.stickpng.com/images/5845cd230b2a3b54fdbaecf7.png';
   static const articlesListIsEmptyText = 'Articles Currently Not Available';
   static const headlinesListIsEmptyText = '❌ No headlines found ❌';
   static const httpExceptionTryAgainTitle = 'Service appears to be down. Please try again later.';

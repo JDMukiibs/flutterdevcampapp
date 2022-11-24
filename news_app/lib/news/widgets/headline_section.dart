@@ -16,17 +16,17 @@ class HeadlineSection extends StatelessWidget {
     return Container(
       color: Theme.of(context).colorScheme.onTertiaryContainer,
       child: CarouselSlider.builder(
-              itemCount: fetchedHeadlines.length,
-              options: CarouselOptions(
-                aspectRatio: 2.0,
-                enlargeCenterPage: true,
-                enlargeStrategy: CenterPageEnlargeStrategy.height,
-                autoPlay: true,
-              ),
-              itemBuilder: (ctx, index, realIdx) {
-                return HeadlineCard(article: fetchedHeadlines[index]);
-              },
-            ),
+        itemCount: fetchedHeadlines.length,
+        options: CarouselOptions(
+          aspectRatio: 2.0,
+          enlargeCenterPage: true,
+          enlargeStrategy: CenterPageEnlargeStrategy.height,
+          autoPlay: true,
+        ),
+        itemBuilder: (ctx, index, realIdx) {
+          return HeadlineCard(article: fetchedHeadlines[index]);
+        },
+      ),
     );
   }
 }
