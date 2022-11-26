@@ -53,7 +53,7 @@ void main() {
       test('Failure to sign in should maintain state as AuthState.unknown', () async {
         when(() => mockAuthService.isAlreadyLoggedIn).thenAnswer((_) => false);
         when(() => mockAuthService.loginWithGoogle()).thenAnswer(
-              (_) async => AuthResult.failure,
+          (_) async => AuthResult.failure,
         );
         when(() => mockAuthService.currentUser).thenAnswer((_) => null);
 
@@ -82,11 +82,14 @@ void main() {
           authService: mockAuthService,
           userInfoStorage: mockUserInfoStorage,
         );
-        expect(authStateNotifier.debugState, AuthState(
-          result: AuthResult.success,
-          isLoading: false,
-          user: mockUser,
-        ),);
+        expect(
+          authStateNotifier.debugState,
+          AuthState(
+            result: AuthResult.success,
+            isLoading: false,
+            user: mockUser,
+          ),
+        );
 
         when(() => mockAuthService.logOut()).thenAnswer((_) async => {});
 
