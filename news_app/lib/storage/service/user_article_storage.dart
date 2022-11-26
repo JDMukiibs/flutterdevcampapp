@@ -6,8 +6,9 @@ import 'package:news_app/storage/storage.dart';
 
 @immutable
 class UserArticleStorage {
-  UserArticleStorage({FirebaseFirestore? firestoreOverride})
-      : firestoreInstance = firestoreOverride ?? FirebaseFirestore.instance;
+  UserArticleStorage({
+    FirebaseFirestore? firestoreOverride,
+  }) : firestoreInstance = firestoreOverride ?? FirebaseFirestore.instance;
 
   final FirebaseFirestore firestoreInstance;
 

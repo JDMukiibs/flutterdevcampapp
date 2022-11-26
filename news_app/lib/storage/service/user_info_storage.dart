@@ -1,27 +1,34 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart' show immutable;
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:news_app/app_constants/app_constants.dart';
 import 'package:news_app/storage/constants/constants.dart';
 import 'package:news_app/storage/models/models.dart';
 
+final userInfoStorageProvider = Provider<UserInfoStorage>(
+  (ref) => UserInfoStorage(),
+);
+
 @immutable
 class UserInfoStorage {
-  const UserInfoStorage();
+  UserInfoStorage({
+    FirebaseFirestore? firestoreOverride,
+  }) : firestoreInstance = firestoreOverride ?? FirebaseFirestore.instance;
+
+  late final FirebaseFirestore firestoreInstance;
 
   Future<bool> saveUserInfo({
-    required String userId,
-    required String? displayName,
-    required String? email,
-    required String? photoUrl,
+    required User user,
   }) async {
     try {
-      final userInfo = await FirebaseFirestore.instance
+      final userInfo = await firestoreInstance
           .collection(
             FirebaseCollectionName.users,
           )
           .where(
             FirebaseFieldName.userId,
-            isEqualTo: userId,
+            isEqualTo: user.uid,
           )
           .limit(1)
           .get();
@@ -29,21 +36,21 @@ class UserInfoStorage {
       if (userInfo.docs.isNotEmpty) {
         // We already have this user's info
         await userInfo.docs.first.reference.update({
-          FirebaseFieldName.displayName: displayName,
-          FirebaseFieldName.email: email,
-          FirebaseFieldName.photoUrl: photoUrl,
+          FirebaseFieldName.displayName: user.displayName,
+          FirebaseFieldName.email: user.email,
+          FirebaseFieldName.photoUrl: user.photoURL,
         });
         return true;
       }
 
       // we don't have this user's info so we create a new user
       final payload = UserInfoPayload(
-        userId: userId,
-        displayName: displayName,
-        email: email,
-        photoUrl: photoUrl,
+        userId: user.uid,
+        displayName: user.displayName,
+        email: user.email,
+        photoUrl: user.photoURL,
       );
-      await FirebaseFirestore.instance
+      await firestoreInstance
           .collection(
             FirebaseCollectionName.users,
           )

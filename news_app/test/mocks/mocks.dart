@@ -19,4 +19,6 @@ class MockGoogleSignInAuthentication extends Mock implements GoogleSignInAuthent
 
 class MockUserCredential extends Mock implements UserCredential {}
 
+class MockUser extends Mock implements User {}
+
 class MockFirebaseFirestore extends Mock implements FirebaseFirestore {}
