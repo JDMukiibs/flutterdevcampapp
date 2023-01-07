@@ -21,9 +21,7 @@ class ArticleListTileListView extends ConsumerWidget {
       content: const Text('Added to Saved Articles'),
       action: SnackBarAction(
         label: 'Dismiss',
-        onPressed: () {
-
-        },
+        onPressed: () {},
       ),
     );
 

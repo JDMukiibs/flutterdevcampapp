@@ -19,9 +19,7 @@ class SavedArticleCard extends ConsumerWidget {
       content: const Text('To Be Implemented'),
       action: SnackBarAction(
         label: 'Dismiss',
-        onPressed: () {
-
-        },
+        onPressed: () {},
       ),
     );
 

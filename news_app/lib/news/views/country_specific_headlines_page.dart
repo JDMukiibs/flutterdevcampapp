@@ -60,7 +60,10 @@ class _CountrySpecificHeadlinesPageState extends ConsumerState<CountrySpecificHe
                   child: Text(
                     OldAppStrings.chooseASourceText,
                     style: TextStyle(
-                      color: Theme.of(context).colorScheme.onPrimaryContainer,
+                      color: Theme
+                          .of(context)
+                          .colorScheme
+                          .onPrimaryContainer,
                       fontSize: 20,
                       fontWeight: FontWeight.w400,
                     ),
@@ -73,7 +76,10 @@ class _CountrySpecificHeadlinesPageState extends ConsumerState<CountrySpecificHe
               Center(
                 child: Text(
                   OldAppStrings.defaultSourcePageInfoMessage,
-                  style: Theme.of(context).primaryTextTheme.bodyText1,
+                  style: Theme
+                      .of(context)
+                      .primaryTextTheme
+                      .bodyText1,
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -90,7 +96,10 @@ class _CountrySpecificHeadlinesPageState extends ConsumerState<CountrySpecificHe
                           width: 60,
                           height: 60,
                           child: CircularProgressIndicator(
-                            color: Theme.of(context).colorScheme.primary,
+                            color: Theme
+                                .of(context)
+                                .colorScheme
+                                .primary,
                           ),
                         ),
                       );
@@ -99,11 +108,14 @@ class _CountrySpecificHeadlinesPageState extends ConsumerState<CountrySpecificHe
                       if (snapshot.hasData) {
                         return snapshot.data!.isEmpty
                             ? Center(
-                                child: Text(
-                                  OldAppStrings.headlinesListIsEmptyText,
-                                  style: Theme.of(context).primaryTextTheme.headline2,
-                                ),
-                              )
+                          child: Text(
+                            OldAppStrings.headlinesListIsEmptyText,
+                            style: Theme
+                                .of(context)
+                                .primaryTextTheme
+                                .headline2,
+                          ),
+                        )
                             : ArticleListTileListView(articles: snapshot.data!);
                       } else if (snapshot.hasError) {
                         final errorMessage = snapshot.error is HttpException
@@ -119,7 +131,10 @@ class _CountrySpecificHeadlinesPageState extends ConsumerState<CountrySpecificHe
                               Center(
                                 child: Text(
                                   errorMessage,
-                                  style: Theme.of(context).primaryTextTheme.headline3,
+                                  style: Theme
+                                      .of(context)
+                                      .primaryTextTheme
+                                      .headline3,
                                   textAlign: TextAlign.center,
                                 ),
                               ),
@@ -133,7 +148,10 @@ class _CountrySpecificHeadlinesPageState extends ConsumerState<CountrySpecificHe
                         return Center(
                           child: Text(
                             OldAppStrings.headlinesListIsEmptyText,
-                            style: Theme.of(context).primaryTextTheme.headline1,
+                            style: Theme
+                                .of(context)
+                                .primaryTextTheme
+                                .headline1,
                           ),
                         );
                       }
