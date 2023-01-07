@@ -17,7 +17,6 @@ class NewsRepository implements BaseRepository {
     required dioHttpServiceClient,
   }) : _dioHttpServiceClient = dioHttpServiceClient;
 
-  // TODO (Joshua): Add Storage Service client
   static const String allArticlesEndpoint = '/everything';
   static const String headlinesEndpoint = '/top-headlines';
 

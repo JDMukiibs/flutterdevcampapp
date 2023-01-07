@@ -4,30 +4,6 @@ import 'package:news_app/app_constants/app_constants.dart';
 
 /// Styles class holding app theming information
 class AppThemes {
-  /// Dark theme data of the app
-  /// TODO (Joshua): Fix color usage for darkTheme
-  static ThemeData get darkTheme {
-    return ThemeData(
-      brightness: Brightness.dark,
-      fontFamily: AppTextStyles.fontFamily,
-      primaryColor: AppColors.getMaterialColorFromColor(AppColors.primary),
-      colorScheme: const ColorScheme.dark(
-        primary: AppColors.primary,
-        secondary: AppColors.secondary,
-        background: AppColors.black,
-      ),
-      backgroundColor: AppColors.black,
-      scaffoldBackgroundColor: AppColors.black,
-      textTheme: TextThemes.darkTextTheme,
-      primaryTextTheme: TextThemes.primaryTextTheme,
-      appBarTheme: const AppBarTheme(
-        elevation: 0,
-        backgroundColor: AppColors.black,
-        titleTextStyle: AppTextStyles.h2,
-      ),
-    );
-  }
-
   /// Light theme data of the app
   static ThemeData get lightTheme {
     return ThemeData(

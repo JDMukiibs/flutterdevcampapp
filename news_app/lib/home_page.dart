@@ -145,7 +145,7 @@ class MySearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    // TODO (Joshua): Cache previous search queries and show them as suggestions
+    // TODO (Joshua): Possible addition, Cache previous search queries and show them as suggestions
     List<String> suggestions = OldAppStrings.sampleSuggestions;
 
     return ListView.builder(
