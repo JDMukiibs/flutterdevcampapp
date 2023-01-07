@@ -40,13 +40,6 @@ class ArticleListTileListView extends ConsumerWidget {
       itemCount: articles.length,
       itemBuilder: (context, index) {
         final article = articles.elementAt(index);
-        final savedIcon = article.isSaved
-            ? const Icon(
-                FontAwesomeIcons.solidBookmark,
-              )
-            : const Icon(
-                FontAwesomeIcons.bookmark,
-              );
 
         return Card(
           clipBehavior: Clip.antiAlias,
@@ -95,13 +88,13 @@ class ArticleListTileListView extends ConsumerWidget {
             ),
             trailing: isLoggedIn
                 ? IconButton(
-                    icon: savedIcon,
+                    icon: const Icon(
+                      FontAwesomeIcons.bookmark,
+                    ),
                     onPressed: () {
                       final userId = ref.read(userProvider)!.uid;
-                      final isSaved = !article.isSaved;
                       ref.read(allArticlesControllerProvider.notifier).saveArticle(
                             article,
-                            isSaved,
                             userId,
                           );
                       _showSnackBar(context);

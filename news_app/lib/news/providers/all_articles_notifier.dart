@@ -39,7 +39,7 @@ class AllArticlesController extends AutoDisposeAsyncNotifier<List<Article>> {
     );
   }
 
-  Future<void> saveArticle(Article article, bool isSaved, String userId) async {
+  Future<void> saveArticle(Article article, String userId) async {
     // read the user article storage provider
     final userArticleStorage = ref.read(userArticleStorageProvider);
     // update the state in this case the article that is to be saved
@@ -47,20 +47,14 @@ class AllArticlesController extends AutoDisposeAsyncNotifier<List<Article>> {
     update((state) async {
       final result = await userArticleStorage.saveArticle(
         userId: userId,
-        article: article.copy(
-          isSaved: isSaved,
-        ),
+        article: article,
       );
 
-      return state
-          .map(
-            (thisArticle) => result && thisArticle.publishedAt == article.publishedAt
-                ? thisArticle.copy(
-                    isSaved: isSaved,
-                  )
-                : thisArticle,
-          )
-          .toList();
+      if (result) {
+        state.removeWhere((element) => element == article);
+      }
+
+      return state;
     });
   }
 }
