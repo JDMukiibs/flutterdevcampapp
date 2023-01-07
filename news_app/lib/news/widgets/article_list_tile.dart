@@ -16,6 +16,20 @@ class ArticleListTileListView extends ConsumerWidget {
     required this.articles,
   }) : super(key: key);
 
+  void _showSnackBar(BuildContext context) {
+    final snackBar = SnackBar(
+      content: const Text('Added to Saved Articles'),
+      action: SnackBarAction(
+        label: 'Dismiss',
+        onPressed: () {
+
+        },
+      ),
+    );
+
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isLoggedIn = ref.watch(isLoggedInProvider);
@@ -90,6 +104,7 @@ class ArticleListTileListView extends ConsumerWidget {
                             isSaved,
                             userId,
                           );
+                      _showSnackBar(context);
                     },
                   )
                 : null,

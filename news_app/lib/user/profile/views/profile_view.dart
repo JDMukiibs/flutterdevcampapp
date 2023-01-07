@@ -46,12 +46,6 @@ class ProfileView extends ConsumerWidget {
               style: Theme.of(context).primaryTextTheme.bodyText1,
             ),
           ),
-          ExpansionTile(
-            title: Text(
-              ProfileViewStrings.selectedSources,
-              style: Theme.of(context).primaryTextTheme.bodyText1,
-            ),
-          ),
           Expanded(
             child: Center(
               child: ElevatedButton.icon(

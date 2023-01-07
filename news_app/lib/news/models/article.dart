@@ -1,10 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:news_app/app_constants/app_constants.dart';
 import 'package:news_app/news/models/models.dart';
-import 'package:uuid/uuid.dart';
 
 class Article extends Equatable with Comparable<Article> {
-  final String uuid;
   final Source? source;
   final String? author;
   final String? title;
@@ -26,10 +24,9 @@ class Article extends Equatable with Comparable<Article> {
     required this.publishedAt,
     required this.content,
     required this.isSaved,
-  }) : uuid = uuid ?? const Uuid().v4();
+  });
 
   Article copy({required bool isSaved}) => Article(
-        uuid: uuid,
         source: source,
         author: author,
         title: title,

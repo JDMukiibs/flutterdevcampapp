@@ -25,8 +25,6 @@ final allArticlesControllerProvider =
 );
 
 class AllArticlesController extends AutoDisposeAsyncNotifier<List<Article>> {
-  late final UserArticleStorage userArticleStorage;
-
   @override
   FutureOr<List<Article>> build() {
     // Get the category selected by the user
@@ -43,7 +41,7 @@ class AllArticlesController extends AutoDisposeAsyncNotifier<List<Article>> {
 
   Future<void> saveArticle(Article article, bool isSaved, String userId) async {
     // read the user article storage provider
-    userArticleStorage = ref.read(userArticleStorageProvider);
+    final userArticleStorage = ref.read(userArticleStorageProvider);
     // update the state in this case the article that is to be saved
     // should have the isSaved bool turned to true
     update((state) async {
@@ -56,7 +54,7 @@ class AllArticlesController extends AutoDisposeAsyncNotifier<List<Article>> {
 
       return state
           .map(
-            (thisArticle) => result && thisArticle.uuid == article.uuid
+            (thisArticle) => result && thisArticle.publishedAt == article.publishedAt
                 ? thisArticle.copy(
                     isSaved: isSaved,
                   )
