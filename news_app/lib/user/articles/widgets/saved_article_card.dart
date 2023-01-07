@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:news_app/app_constants/app_constants.dart';
 import 'package:news_app/storage/storage.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SavedArticleCard extends ConsumerWidget {
   final SavedArticle article;
@@ -12,6 +13,20 @@ class SavedArticleCard extends ConsumerWidget {
     Key? key,
     required this.article,
   }) : super(key: key);
+
+  void _showSnackBar(BuildContext context) {
+    final snackBar = SnackBar(
+      content: const Text('To Be Implemented'),
+      action: SnackBarAction(
+        label: 'Dismiss',
+        onPressed: () {
+
+        },
+      ),
+    );
+
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -54,11 +69,18 @@ class SavedArticleCard extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               TextButton(
-                onPressed: () {},
+                onPressed: () async {
+                  final url = Uri.parse(article.url);
+                  if (!await launchUrl(url)) {
+                    throw 'Could not launch $url';
+                  }
+                },
                 child: const Text('READ'),
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  _showSnackBar(context);
+                },
                 child: const Text('DELETE'),
               ),
             ],

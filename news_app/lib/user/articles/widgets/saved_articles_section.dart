@@ -13,45 +13,49 @@ class SavedArticlesSection extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final articles = ref.watch(userSavedArticlesProvider);
 
-    return articles.when(
-      data: (data) => data.isEmpty
-          ? Center(
-              child: Text(
-                '❌ No articles found ❌',
-                style: Theme.of(context).primaryTextTheme.headline1,
-              ),
-            )
-          : ListView.builder(
-              physics: const ScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: data.length,
-              itemBuilder: (context, index) {
-                final article = data.elementAt(index);
+    return Column(
+      children: [
+        articles.when(
+          data: (data) => data.isEmpty
+              ? Center(
+                  child: Text(
+                    '❌ No articles found ❌',
+                    style: Theme.of(context).primaryTextTheme.headline1,
+                  ),
+                )
+              : ListView.builder(
+                  physics: const ClampingScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: data.length,
+                  itemBuilder: (context, index) {
+                    final article = data.elementAt(index);
 
-                return SavedArticleCard(article: article);
-              },
+                    return SavedArticleCard(article: article);
+                  },
+                ),
+          error: (error, __) => Padding(
+            padding: const EdgeInsets.all(25.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: const [
+                Center(
+                  child: ErrorCard(),
+                ),
+              ],
             ),
-      error: (error, __) => Padding(
-        padding: const EdgeInsets.all(25.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: const [
-            Center(
-              child: ErrorCard(),
+          ),
+          loading: () => Center(
+            child: SizedBox(
+              width: 60,
+              height: 60,
+              child: CircularProgressIndicator(
+                color: Theme.of(context).colorScheme.primary,
+              ),
             ),
-          ],
-        ),
-      ),
-      loading: () => Center(
-        child: SizedBox(
-          width: 60,
-          height: 60,
-          child: CircularProgressIndicator(
-            color: Theme.of(context).colorScheme.primary,
           ),
         ),
-      ),
+      ],
     );
   }
 }

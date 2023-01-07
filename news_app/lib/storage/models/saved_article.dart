@@ -6,7 +6,6 @@ import 'package:news_app/storage/storage.dart';
 class SavedArticle {
   final String articleId;
   final String userId;
-  final String createdAt;
   final Source source;
   final String author;
   final String title;
@@ -20,7 +19,6 @@ class SavedArticle {
     required this.articleId,
     required Map<String, dynamic> json,
   })  : userId = json[FirebaseFieldName.userId],
-        createdAt = json[FirebaseFieldName.createdAt],
         source = Source.fromJson(json[FirebaseFieldName.source]),
         author = json[FirebaseFieldName.author],
         title = json[FirebaseFieldName.title],
