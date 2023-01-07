@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:news_app/news/news.dart';
 import 'package:news_app/news_api/news_api.dart';
 
+// TODO (Joshua): Create Notifier class and move from Future Provider if needed
 final defaultHeadlinesProvider = FutureProvider.autoDispose<List<Article>>((ref) async {
   // Get the category selected by the user
   final currentCategory = ref.watch(currentCategoryProvider);
@@ -14,8 +15,4 @@ final defaultHeadlinesProvider = FutureProvider.autoDispose<List<Article>>((ref)
   ref.keepAlive();
 
   return newsRepo.getHeadlines(category: currentCategory?.name);
-});
-
-final customHeadlinesProvider = FutureProvider.autoDispose<List<Article>>((ref) async {
-  return [];
 });

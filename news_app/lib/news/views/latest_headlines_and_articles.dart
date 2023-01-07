@@ -9,18 +9,20 @@ class LatestHeadlinesAndArticles extends ConsumerWidget {
     Key? key,
   }) : super(key: key);
 
+  Future<void> _refreshProviders(WidgetRef ref) async {
+    ref.refresh(defaultHeadlinesProvider.future);
+    ref.refresh(allArticlesControllerProvider.future);
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final latestHeadlines = ref.watch(defaultHeadlinesProvider);
-    final latestArticles = ref.watch(allArticlesProvider);
+    final latestArticles = ref.watch(allArticlesControllerProvider);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: RefreshIndicator(
-        onRefresh: () async {
-          await ref.refresh(defaultHeadlinesProvider.future);
-          await ref.refresh(allArticlesProvider.future);
-        },
+        onRefresh: () => _refreshProviders(ref),
         child: SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(),
           child: Column(
