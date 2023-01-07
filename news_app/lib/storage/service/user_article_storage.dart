@@ -1,8 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart' show immutable;
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:news_app/app_constants/app_constants.dart';
 import 'package:news_app/news/news.dart' show Article;
 import 'package:news_app/storage/storage.dart';
+
+final userArticleStorageProvider = Provider<UserArticleStorage>(
+  (ref) => UserArticleStorage(),
+);
 
 @immutable
 class UserArticleStorage {
@@ -44,7 +49,7 @@ class UserArticleStorage {
     required SavedArticle article,
   }) async {
     try {
-      // TODO (Joshua): Implement Delete/Remove from saved articles
+      // TODO (Joshua):Future addition, Implement Delete/Remove from saved articles
       return true;
     } catch (e) {
       e.log();

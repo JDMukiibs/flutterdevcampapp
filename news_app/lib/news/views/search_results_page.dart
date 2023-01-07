@@ -39,11 +39,17 @@ class _SearchResultsState extends ConsumerState<SearchResults> {
           onPressed: () {
             Navigator.pop(context);
           },
-          color: Theme.of(context).iconTheme.color,
+          color: Theme
+              .of(context)
+              .iconTheme
+              .color,
         ),
         centerTitle: true,
         title: const Text(OldAppStrings.searchResultsTitle),
-        titleTextStyle: Theme.of(context).primaryTextTheme.headline2,
+        titleTextStyle: Theme
+            .of(context)
+            .primaryTextTheme
+            .headline2,
       ),
       body: SingleChildScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
@@ -59,7 +65,10 @@ class _SearchResultsState extends ConsumerState<SearchResults> {
                         width: 60,
                         height: 60,
                         child: CircularProgressIndicator(
-                          color: Theme.of(context).colorScheme.primary,
+                          color: Theme
+                              .of(context)
+                              .colorScheme
+                              .primary,
                         ),
                       ),
                     );
@@ -68,11 +77,14 @@ class _SearchResultsState extends ConsumerState<SearchResults> {
                     if (snapshot.hasData) {
                       return snapshot.data!.isEmpty
                           ? Center(
-                              child: Text(
-                                OldAppStrings.articlesListIsEmptyText,
-                                style: Theme.of(context).primaryTextTheme.headline2,
-                              ),
-                            )
+                        child: Text(
+                          OldAppStrings.articlesListIsEmptyText,
+                          style: Theme
+                              .of(context)
+                              .primaryTextTheme
+                              .headline2,
+                        ),
+                      )
                           : ArticleListTileListView(articles: snapshot.data!);
                     } else if (snapshot.hasError) {
                       final errorMessage = snapshot.error is HttpException
@@ -81,14 +93,20 @@ class _SearchResultsState extends ConsumerState<SearchResults> {
                       return Center(
                         child: Text(
                           '❌ $errorMessage ❌',
-                          style: Theme.of(context).primaryTextTheme.headline2,
+                          style: Theme
+                              .of(context)
+                              .primaryTextTheme
+                              .headline2,
                         ),
                       );
                     } else {
                       return Center(
                         child: Text(
                           OldAppStrings.articlesListIsEmptyText,
-                          style: Theme.of(context).primaryTextTheme.headline1,
+                          style: Theme
+                              .of(context)
+                              .primaryTextTheme
+                              .headline1,
                         ),
                       );
                     }

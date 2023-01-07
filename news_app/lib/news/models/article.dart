@@ -14,6 +14,7 @@ class Article extends Equatable with Comparable<Article> {
   final bool isSaved;
 
   Article({
+    String? uuid,
     required this.source,
     required this.author,
     required this.title,

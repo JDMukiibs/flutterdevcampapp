@@ -1,12 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:news_app/app_constants/app_constants.dart';
-import 'package:news_app/news/models/models.dart';
+import 'package:news_app/authentication/authentication.dart';
+import 'package:news_app/news/news.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class ArticleListTileListView extends StatelessWidget {
+class ArticleListTileListView extends ConsumerWidget {
   final List<Article> articles;
 
   const ArticleListTileListView({
@@ -14,22 +16,28 @@ class ArticleListTileListView extends StatelessWidget {
     required this.articles,
   }) : super(key: key);
 
-  // TODO (Joshua): Add an articles notifier to help with updating and showing which articles get saved or unsaved
+  void _showSnackBar(BuildContext context) {
+    final snackBar = SnackBar(
+      content: const Text('Added to Saved Articles'),
+      action: SnackBarAction(
+        label: 'Dismiss',
+        onPressed: () {},
+      ),
+    );
+
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isLoggedIn = ref.watch(isLoggedInProvider);
+
     return ListView.builder(
       physics: const ScrollPhysics(),
       shrinkWrap: true,
       itemCount: articles.length,
       itemBuilder: (context, index) {
         final article = articles.elementAt(index);
-        final savedIcon = article.isSaved
-            ? const Icon(
-                FontAwesomeIcons.solidBookmark,
-              )
-            : const Icon(
-                FontAwesomeIcons.bookmark,
-              );
 
         return Card(
           clipBehavior: Clip.antiAlias,
@@ -76,12 +84,21 @@ class ArticleListTileListView extends StatelessWidget {
                 ],
               ),
             ),
-            trailing: IconButton(
-              icon: savedIcon,
-              onPressed: () {
-                // TODO (Joshua): Implement notifier method call
-              },
-            ),
+            trailing: isLoggedIn
+                ? IconButton(
+                    icon: const Icon(
+                      FontAwesomeIcons.bookmark,
+                    ),
+                    onPressed: () {
+                      final userId = ref.read(userProvider)!.uid;
+                      ref.read(allArticlesControllerProvider.notifier).saveArticle(
+                            article,
+                            userId,
+                          );
+                      _showSnackBar(context);
+                    },
+                  )
+                : null,
             onTap: () async {
               final articleUrl = articles[index].url == null ? OldAppStrings.missingUrl : articles[index].url!;
               final url = Uri.parse(articleUrl);

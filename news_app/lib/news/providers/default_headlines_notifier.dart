@@ -15,7 +15,3 @@ final defaultHeadlinesProvider = FutureProvider.autoDispose<List<Article>>((ref)
 
   return newsRepo.getHeadlines(category: currentCategory?.name);
 });
-
-final customHeadlinesProvider = FutureProvider.autoDispose<List<Article>>((ref) async {
-  return [];
-});

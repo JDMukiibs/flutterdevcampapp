@@ -9,18 +9,20 @@ class LatestHeadlinesAndArticles extends ConsumerWidget {
     Key? key,
   }) : super(key: key);
 
+  Future<void> _refreshProviders(WidgetRef ref) async {
+    ref.refresh(defaultHeadlinesProvider.future);
+    ref.refresh(allArticlesControllerProvider.future);
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final latestHeadlines = ref.watch(defaultHeadlinesProvider);
-    final latestArticles = ref.watch(allArticlesProvider);
+    final latestArticles = ref.watch(allArticlesControllerProvider);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: RefreshIndicator(
-        onRefresh: () async {
-          await ref.refresh(defaultHeadlinesProvider.future);
-          await ref.refresh(allArticlesProvider.future);
-        },
+        onRefresh: () => _refreshProviders(ref),
         child: SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(),
           child: Column(
@@ -30,74 +32,101 @@ class LatestHeadlinesAndArticles extends ConsumerWidget {
               const SizedBox(height: 10),
               Text(
                 OldAppStrings.headlinesTitle,
-                style: Theme.of(context).primaryTextTheme.headline3,
+                style: Theme
+                    .of(context)
+                    .primaryTextTheme
+                    .headline3,
               ),
               const SizedBox(height: 10),
               latestHeadlines.when(
-                data: (data) => data.isEmpty
+                data: (data) =>
+                data.isEmpty
                     ? Text(
-                        OldAppStrings.headlinesListIsEmptyText,
-                        style: Theme.of(context).primaryTextTheme.headline1,
-                      )
+                  OldAppStrings.headlinesListIsEmptyText,
+                  style: Theme
+                      .of(context)
+                      .primaryTextTheme
+                      .headline1,
+                )
                     : HeadlineSection(fetchedHeadlines: data),
-                error: (error, __) => Padding(
-                  padding: const EdgeInsets.only(top: 30),
-                  child: Center(
-                    child: Text(
-                      error is HttpException
-                          ? OldAppStrings.httpExceptionTryAgainTitle
-                          : OldAppStrings.headlinesListIsEmptyText,
-                      style: Theme.of(context).primaryTextTheme.headline3,
-                      textAlign: TextAlign.center,
+                error: (error, __) =>
+                    Padding(
+                      padding: const EdgeInsets.only(top: 30),
+                      child: Center(
+                        child: Text(
+                          error is HttpException
+                              ? OldAppStrings.httpExceptionTryAgainTitle
+                              : OldAppStrings.headlinesListIsEmptyText,
+                          style: Theme
+                              .of(context)
+                              .primaryTextTheme
+                              .headline3,
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-                loading: () => Center(
-                  child: SizedBox(
-                    width: 60,
-                    height: 60,
-                    child: CircularProgressIndicator(
-                      color: Theme.of(context).colorScheme.primary,
+                loading: () =>
+                    Center(
+                      child: SizedBox(
+                        width: 60,
+                        height: 60,
+                        child: CircularProgressIndicator(
+                          color: Theme
+                              .of(context)
+                              .colorScheme
+                              .primary,
+                        ),
+                      ),
                     ),
-                  ),
-                ),
               ),
               const SizedBox(height: 20),
               Text(
                 OldAppStrings.articlesTitle,
-                style: Theme.of(context).primaryTextTheme.headline3,
+                style: Theme
+                    .of(context)
+                    .primaryTextTheme
+                    .headline3,
               ),
               const SizedBox(height: 10),
               latestArticles.when(
-                data: (data) => data.isEmpty
+                data: (data) =>
+                data.isEmpty
                     ? Center(
-                        child: Text(
-                          '❌ No articles found ❌',
-                          style: Theme.of(context).primaryTextTheme.headline1,
-                        ),
-                      )
+                  child: Text(
+                    '❌ No articles found ❌',
+                    style: Theme
+                        .of(context)
+                        .primaryTextTheme
+                        .headline1,
+                  ),
+                )
                     : ArticleListTileListView(articles: data),
-                error: (error, __) => Padding(
-                  padding: const EdgeInsets.all(25.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: const [
-                      Center(
-                        child: ErrorCard(),
+                error: (error, __) =>
+                    Padding(
+                      padding: const EdgeInsets.all(25.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: const [
+                          Center(
+                            child: ErrorCard(),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                ),
-                loading: () => Center(
-                  child: SizedBox(
-                    width: 60,
-                    height: 60,
-                    child: CircularProgressIndicator(
-                      color: Theme.of(context).colorScheme.primary,
                     ),
-                  ),
-                ),
+                loading: () =>
+                    Center(
+                      child: SizedBox(
+                        width: 60,
+                        height: 60,
+                        child: CircularProgressIndicator(
+                          color: Theme
+                              .of(context)
+                              .colorScheme
+                              .primary,
+                        ),
+                      ),
+                    ),
               ),
             ],
           ),
